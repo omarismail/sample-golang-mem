@@ -57,18 +57,23 @@ func main() {
 	fmt.Printf("==> Server listening at %s 🚀\n", bindAddr)
 
 	go func() {
+		fmt.Println("Starting server")
 		err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 		if err != nil {
 			panic(err)
 		}
 	}()
 
+	fmt.Println("Sleeping for 30 seconds")
 	time.Sleep(30 * time.Second)
+	fmt.Println("START")
 
 	PrintMemUsage()
 
+	fmt.Println("Starting infin loop")
 	var overall [][]int
 	for {
+		fmt.Println("Allocating memory make")
 
 		// Allocate memory using make() and append to overall (so it doesn't get
 		// garbage collected). This is to create an ever increasing memory usage
@@ -78,7 +83,7 @@ func main() {
 
 		// Print our memory usage at each interval
 		PrintMemUsage()
-		time.Sleep(time.Second)
+		time.Sleep(1 * time.Second)
 	}
 
 }
